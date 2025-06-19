@@ -261,7 +261,8 @@ const sendResetPasswordEmail = async (req, res, next) => {
 
 const validateResetCode = async (req, res, next) => {
   try {
-    const { resetCode, resetCodeId, email } = req.body;
+    const { resetCodeId, email } = req.body;
+    const resetCode = parseInt(req.body.resetCode);
 
     if (!email) {
       throw createHttpError.BadRequest("Email not provided.");
@@ -295,6 +296,7 @@ const validateResetCode = async (req, res, next) => {
     res.status(200).json({
       message: "Reset code valid.",
       resetCodeId: retrievedResetCode._id.toString(),
+      email: email,
       success: true,
     });
   } catch (error) {

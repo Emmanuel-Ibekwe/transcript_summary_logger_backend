@@ -4,8 +4,8 @@ const User = require("../models/user.model.js");
 
 const getPaginatedTranscripts = async (req, res, next) => {
   try {
-    const page = Math.max(1, parseInt(req.query.page) || 1);
-    const limit = Math.max(1, parseInt(req.query.limit) || 10);
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const limit = Math.max(1, parseInt(req.query.limit, 10) || 10);
     const sortTranscripts = req.query.sortTranscripts || "false";
     const skip = (page - 1) * limit;
 

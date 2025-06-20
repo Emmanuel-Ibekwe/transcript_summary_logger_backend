@@ -262,7 +262,7 @@ const sendResetPasswordEmail = async (req, res, next) => {
 const validateResetCode = async (req, res, next) => {
   try {
     const { resetCodeId, email } = req.body;
-    const resetCode = parseInt(req.body.resetCode);
+    const resetCode = parseInt(req.body.resetCode, 10);
 
     if (!email) {
       throw createHttpError.BadRequest("Email not provided.");

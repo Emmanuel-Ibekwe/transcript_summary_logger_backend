@@ -66,12 +66,12 @@ const signup = async (req, res, next) => {
     res.status(201).json({
       success: true,
       message: "sign up successful",
-      accessToken,
-      refreshToken,
       user: {
         _id: newUser._id,
         name: newUser.name,
         email: newUser.email,
+        accessToken,
+        refreshToken,
       },
     });
   } catch (error) {
@@ -120,12 +120,12 @@ const login = async (req, res, next) => {
     res.status(201).json({
       success: true,
       message: "login successful",
-      accessToken,
-      refreshToken,
       user: {
         _id: user._id,
         name: user.name,
         email: user.email,
+        accessToken,
+        refreshToken,
       },
     });
   } catch (error) {

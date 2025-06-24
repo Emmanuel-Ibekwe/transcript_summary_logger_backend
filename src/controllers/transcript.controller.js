@@ -6,7 +6,7 @@ const getPaginatedTranscripts = async (req, res, next) => {
   try {
     const page = Math.max(1, parseInt(req.query.page, 10) || 1);
     const limit = Math.max(1, parseInt(req.query.limit, 10) || 10);
-    const sortTranscripts = req.query.sortTranscripts || "false";
+    const isSortedTranscripts = req.query.isSortedTranscripts || "false";
     const skip = (page - 1) * limit;
 
     // Get total count of transcripts
@@ -14,7 +14,7 @@ const getPaginatedTranscripts = async (req, res, next) => {
     const totalPages = Math.ceil(totalTranscripts / limit);
 
     let transcripts;
-    if (sortTranscripts == "true") {
+    if (isSortedTranscripts == "true") {
       transcripts = await Transcript.find()
         .sort({
           hasSummary: -1,

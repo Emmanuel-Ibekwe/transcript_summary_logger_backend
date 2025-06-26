@@ -103,6 +103,32 @@ const addTranscript = async (req, res, next) => {
   }
 };
 
+const editTranscript = async (req, res, next) => {
+  try {
+    const { transcript } = req.body;
+    const { videoId } = req.params;
+
+    if (!videoId || !transcript) {
+      throw createHttpError.BadRequest("Fill all fields.");
+    }
+
+    const retrievedTranscript = await Transcript.findOne({ videoId: videoId });
+
+    retrievedTranscript.transcript = transcript;
+    retrievedTranscript.save();
+
+    res
+      .status(200)
+      .json({ message: "success", transcript: retrievedTranscript });
+  } catch (error) {
+    if (!error.status) {
+      error.status = 500;
+    }
+    error.success = false;
+    next(error);
+  }
+};
+
 const addSummary = async (req, res, next) => {
   try {
     const { summary } = req.body;
@@ -182,6 +208,7 @@ const editSummary = async (req, res, next) => {
 module.exports = {
   getPaginatedTranscripts,
   addTranscript,
+  editTranscript,
   addSummary,
   editSummary,
 };

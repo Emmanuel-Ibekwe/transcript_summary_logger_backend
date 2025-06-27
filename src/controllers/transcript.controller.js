@@ -114,6 +114,10 @@ const editTranscript = async (req, res, next) => {
 
     const retrievedTranscript = await Transcript.findOne({ videoId: videoId });
 
+    if (!retrievedTranscript) {
+      throw createHttpError.NotFound("Transcript not found.");
+    }
+
     retrievedTranscript.transcript = transcript;
     await retrievedTranscript.save();
 

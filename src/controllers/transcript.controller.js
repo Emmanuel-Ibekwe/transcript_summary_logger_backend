@@ -115,7 +115,7 @@ const editTranscript = async (req, res, next) => {
     const retrievedTranscript = await Transcript.findOne({ videoId: videoId });
 
     retrievedTranscript.transcript = transcript;
-    retrievedTranscript.save();
+    await retrievedTranscript.save();
 
     res
       .status(200)
